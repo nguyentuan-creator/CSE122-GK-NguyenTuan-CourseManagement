@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quản lý học phần – StudyPath AI</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar">
+      <a class="brand" href="#">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" />
+        </svg>
+        <span>StudyPath AI</span>
+      </a>
+      <nav class="sidebar-nav" aria-label="Điều hướng chính">
+        <a class="nav-item" href="#">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.25 12l8.954-8.955a1.126 1.126 0 011.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75" /></svg>
+          <span>Tổng quan</span>
+        </a>
+        <a class="nav-item active" href="#" aria-current="page">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" /></svg>
+          <span>Học phần</span>
+        </a>
+        <a class="nav-item" href="#">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3" /></svg>
+          <span>Chương trình</span>
+        </a>
+        <a class="nav-item" href="#">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" /></svg>
+          <span>Người dùng</span>
+        </a>
+        <a class="nav-item" href="#">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" /><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+          <span>Cài đặt</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- ===== KHU VỰC CHÍNH ===== -->
+    <div class="main-area">
+      <header class="topbar">
+        <a class="brand mobile-brand" href="#" aria-label="StudyPath AI">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" />
+          </svg>
+        </a>
+        <div class="topbar-search">
+          <input id="globalSearch" class="form-input" type="search" placeholder="Tìm sinh viên, kế hoạch, học phần..." aria-label="Tìm kiếm nhanh">
+        </div>
+        <div class="topbar-actions">
+          <div class="user-chip">
+            <span class="avatar avatar-sm avatar-admin" aria-hidden="true">LM</span>
+            <div class="user-chip-text">
+              <strong>Lê Minh Đức</strong>
+              <small>Quản trị viên</small>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="main-content">
+        <!-- Đầu trang -->
+        <div class="page-head">
+          <div>
+            <h1>Quản lý học phần</h1>
+            <p class="text-muted" id="pageSubtitle">Đang tải dữ liệu...</p>
+          </div>
+          <button class="btn btn-primary" id="btnAdd" type="button">
+            <span aria-hidden="true">+</span> Thêm học phần
+          </button>
+        </div>
+
+        <!-- Bộ lọc -->
+        <section class="card filter-card" aria-label="Bộ lọc danh sách học phần">
+          <form id="filterForm" class="filter-bar">
+            <div class="form-group">
+              <label class="form-label" for="searchInput">Tìm kiếm</label>
+              <input id="searchInput" class="form-input" type="search" placeholder="Tìm theo mã hoặc tên học phần..." aria-label="Tìm theo mã hoặc tên học phần">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="programFilter">Chương trình</label>
+              <select id="programFilter" class="form-select">
+                <option value="">Tất cả</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="statusFilter">Trạng thái</label>
+              <select id="statusFilter" class="form-select">
+                <option value="">Tất cả</option>
+                <option value="open">Đang mở</option>
+                <option value="suspended">Tạm ngưng</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary filter-submit">Lọc</button>
+          </form>
+        </section>
+
+        <!-- Bảng danh sách -->
+        <section class="card table-card" aria-label="Danh sách học phần">
+          <div class="card-head table-head-row">
+            <h2 class="table-title">Danh sách học phần</h2>
+            <p class="soft-delete-note">"Vô hiệu hóa" = xóa mềm, học phần không còn chọn được nhưng giữ dữ liệu</p>
+          </div>
+
+          <div class="table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>MÃ</th>
+                  <th>TÊN HỌC PHẦN</th>
+                  <th class="th-center">TC</th>
+                  <th>CHƯƠNG TRÌNH</th>
+                  <th>TRẠNG THÁI</th>
+                  <th>CẬP NHẬT</th>
+                  <th class="th-actions"><span class="visually-hidden">Thao tác</span></th>
+                </tr>
+              </thead>
+              <tbody id="courseTbody"></tbody>
+            </table>
+            <div class="empty-state hidden" id="emptyState">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 21l-4.35-4.35M17 10.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z" />
+              </svg>
+              <p>Không tìm thấy học phần phù hợp</p>
+              <button class="btn btn-secondary btn-sm" id="btnReset" type="button">Đặt lại bộ lọc</button>
+            </div>
+          </div>
+
+          <div class="table-foot">
+            <p class="text-sm text-muted" id="showingText"></p>
+            <div class="pagination" id="pagination" role="navigation" aria-label="Phân trang"></div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- ===== MODAL THÊM / SỬA HỌC PHẦN ===== -->
+  <div class="modal-overlay hidden" id="courseModal">
+    <div class="modal course-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-head">
+        <h2 id="modalTitle">Thêm học phần</h2>
+        <button class="icon-btn" id="btnCloseModal" type="button" aria-label="Đóng hộp thoại">×</button>
+      </div>
+      <form id="courseForm" novalidate>
+        <div class="modal-body">
+          <input type="hidden" id="editingId">
+          <div class="grid-2">
+            <div class="form-group">
+              <label class="form-label" for="courseCode">Mã học phần <span class="req" aria-hidden="true">*</span></label>
+              <input id="courseCode" class="form-input" placeholder="VD: IT7070" maxlength="10" autocomplete="off">
+              <p class="form-error hidden" id="errCode"></p>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="courseName">Tên học phần <span class="req" aria-hidden="true">*</span></label>
+              <input id="courseName" class="form-input" placeholder="VD: Phân tích và thiết kế hệ thống" autocomplete="off">
+              <p class="form-error hidden" id="errName"></p>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="courseCredits">Số tín chỉ <span class="req" aria-hidden="true">*</span></label>
+              <input id="courseCredits" class="form-input" type="number" min="1" max="15" placeholder="VD: 3">
+              <p class="form-error hidden" id="errCredits"></p>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="courseType">Loại</label>
+              <select id="courseType" class="form-select">
+                <option value="Bắt buộc">Bắt buộc</option>
+                <option value="Tự chọn">Tự chọn</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="courseDesc">Mô tả</label>
+            <textarea id="courseDesc" class="form-textarea" placeholder="Mô tả ngắn về học phần..."></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="prereqSelect">Học phần tiên quyết</label>
+            <div class="prereq-box">
+              <p class="prereq-hint">CHỌN NHIỀU</p>
+              <div class="prereq-chips" id="prereqChips"></div>
+              <select id="prereqSelect" class="form-select prereq-select" aria-label="Thêm học phần tiên quyết">
+                <option value="">+ Thêm tiên quyết</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-foot">
+          <button type="button" class="btn btn-ghost" id="btnCancel">Hủy</button>
+          <button type="submit" class="btn btn-primary" id="btnSave">Lưu học phần</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Nơi hiện thông báo toast -->
+  <div class="toast-stack" id="toastStack" aria-live="polite"></div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
