@@ -12,6 +12,7 @@ const PROGRAMS = [
     name: "Công nghệ thông tin",
     prefix: "IT",
     short: "CNTT",
+    label: "CNTT (K17)",
     faculty: "Khoa Công nghệ thông tin",
     levels: [
       ["Nhập môn lập trình", "Kỹ thuật lập trình", "Kiến trúc máy tính", "Hệ điều hành", "Kỹ thuật số"],
@@ -25,6 +26,7 @@ const PROGRAMS = [
     name: "Khoa học máy tính",
     prefix: "MA",
     short: "KHMT",
+    label: "Toán - Tin",
     faculty: "Khoa Toán — Tin",
     levels: [
       ["Giải tích 1", "Giải tích 2", "Đại số tuyến tính", "Nhập môn khoa học máy tính"],
@@ -38,6 +40,7 @@ const PROGRAMS = [
     name: "Kỹ thuật phần mềm",
     prefix: "SE",
     short: "KTPM",
+    label: "KTPM (K17)",
     faculty: "Khoa Công nghệ thông tin",
     levels: [
       ["Nhập môn kỹ thuật phần mềm", "Lập trình Python", "Phân tích yêu cầu", "Kỹ năng giao tiếp"],
@@ -51,6 +54,7 @@ const PROGRAMS = [
     name: "Hệ thống thông tin",
     prefix: "IS",
     short: "HTTT",
+    label: "HTTT (K17)",
     faculty: "Khoa Hệ thống thông tin",
     levels: [
       ["Nhập môn hệ thống thông tin", "Tin học văn phòng", "Kinh tế học vi mô", "Quản trị học"],
@@ -64,6 +68,7 @@ const PROGRAMS = [
     name: "An toàn thông tin",
     prefix: "AT",
     short: "ATTT",
+    label: "ATTT (K17)",
     faculty: "Khoa An toàn thông tin",
     levels: [
       ["Nhập môn an toàn thông tin", "Tin học pháp lý", "Mật mã sơ cấp", "Quản lý rủi ro"],
@@ -77,6 +82,7 @@ const PROGRAMS = [
     name: "Khoa học dữ liệu",
     prefix: "DA",
     short: "KHDL",
+    label: "KHDL (K17)",
     faculty: "Khoa Khoa học dữ liệu & AI",
     levels: [
       ["Nhập môn khoa học dữ liệu", "Lập trình R", "Thống kê mô tả", "Thu thập dữ liệu"],
@@ -89,10 +95,21 @@ const PROGRAMS = [
 ];
 
 /* Học phần tạm ngưng để trình diễn bộ lọc + nút "Mở lại" */
-const PAUSED_CODES = new Set(["IT5060", "IT3030", "MA4010", "SE5010", "IS3010", "AT3010", "DA2010", "IS5020"]);
+const PAUSED_CODES = new Set(["IT5060", "IT3030", "MA4010"]);
+
+/* Dữ liệu khớp thiết kế Figma: 5 dòng hiển thị ở trang 1, nhãn và ngày cập nhật riêng */
+const FIGMA_PAGE_ONE = ["IT1010", "IT1020", "IT3060", "IT5060", "MA2010"];
+const FIGMA_LABELS = { IT3060: "CNTT - HTTT" };
+const FIGMA_DATES = {
+  IT1010: [2026, 9, 1],
+  IT1020: [2026, 7, 28],
+  IT3060: [2026, 8, 25],
+  IT5060: [2026, 8, 20],
+  MA2010: [2026, 8, 15]
+};
 
 /* Chu kỳ tín chỉ lặp lại cho từng học phần */
-const CREDIT_PATTERN = [4, 4, 3, 3, 5];
+const CREDIT_PATTERN = [3, 4, 3, 3, 3];
 
 /* Tên loại học phần */
 const TYPE_ELECTIVE = "Tự chọn";
@@ -122,10 +139,15 @@ function buildCourses() {
           }
         }
 
-        /* Ngày cập nhật: sinh xác định theo id (không ngẫu nhiên) trong khoảng giữa kỳ */
-        const dayOffset = (id * 7) % 55; // cách ngày hiện tại tối đa ~8 tuần
-        const updated = new Date(2026, 9, 14);
-        updated.setDate(updated.getDate() - dayOffset);
+        /* Ngày cập nhật: 5 dòng đầu lấy đúng ngày trong Figma, còn lại sinh theo id */
+        let updated;
+        if (FIGMA_DATES[code]) {
+          updated = new Date(FIGMA_DATES[code][0], FIGMA_DATES[code][1], FIGMA_DATES[code][2]);
+        } else {
+          const dayOffset = (id * 7) % 55; // cách ngày hiện tại tối đa ~8 tuần
+          updated = new Date(2026, 9, 14);
+          updated.setDate(updated.getDate() - dayOffset);
+        }
 
         list.push({
           id: id,
@@ -134,6 +156,7 @@ function buildCourses() {
           credits: CREDIT_PATTERN[(id - 1) % CREDIT_PATTERN.length],
           type: /^(Chuyên đề|Thực tập)/.test(name) ? TYPE_ELECTIVE : TYPE_REQUIRED,
           program: program.short,
+          label: FIGMA_LABELS[code] || program.label,
           programName: program.name,
           faculty: program.faculty,
           description: "Học phần " + name + " thuộc chương trình " + program.name + ".",
@@ -151,6 +174,17 @@ function buildCourses() {
 }
 
 let courses = buildCourses();
+
+/* Đưa đúng 5 dòng trang 1 của Figma lên đầu, giữ nguyên thứ tự phần còn lại */
+const featuredRows = FIGMA_PAGE_ONE.map(function (code) {
+  return courses.find(function (c) {
+    return c.code === code;
+  });
+}).filter(Boolean);
+courses = featuredRows.concat(courses.filter(function (c) {
+  return FIGMA_PAGE_ONE.indexOf(c.code) === -1;
+}));
+
 let nextId = courses.length + 1;
 
 /* ===== 3. TRẠNG THÁI ỨNG DỤNG ===== */
@@ -278,7 +312,7 @@ function rowHtml(course) {
       '<td class="cell-code">' + escapeHtml(course.code) + "</td>" +
       '<td class="cell-name">' + escapeHtml(course.name) + "</td>" +
       '<td class="td-center">' + course.credits + "</td>" +
-      "<td>" + escapeHtml(course.program) + "</td>" +
+      "<td>" + escapeHtml(course.label || course.program) + "</td>" +
       "<td>" + statusTag + "</td>" +
       "<td>" + formatDate(course.updatedAt) + "</td>" +
       '<td class="row-actions">' + actions + "</td>" +
@@ -507,6 +541,7 @@ function saveCourse(event) {
     course.prereqs = prereqDraft.slice();
     /* Mã đổi tiền tố thì chương trình / khoa đổi theo */
     course.program = program.short;
+    course.label = FIGMA_LABELS[code] || program.label;
     course.programName = program.name;
     course.faculty = program.faculty;
     course.updatedAt = today;
@@ -520,6 +555,7 @@ function saveCourse(event) {
       credits: Number(el.credits.value),
       type: el.type.value,
       program: program.short,
+      label: FIGMA_LABELS[code] || program.label,
       programName: program.name,
       faculty: program.faculty,
       description: el.desc.value.trim() || "Học phần " + el.name.value.trim() + ".",
